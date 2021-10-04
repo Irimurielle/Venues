@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DashboardActivity"
+    android:background="@color/green">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
+
+                <TextView
+                    android:id="@+id/textDash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_toRightOf="@+id/imageProfile"
+                    android:text="Hey,"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/imageProfile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/profile"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <SearchView
+                    android:id="@+id/edit"
+                    android:layout_width="210dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/textDash"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/search"
+                    android:gravity="center"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="What you planning in Rwanda" />
+
+                <ImageView
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ic_notifications_none" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    android:text="See all"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView16"
+                android:layout_marginTop="3dp"
+                android:columnCount="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/meeting" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Meeting"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/conference" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Conference"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/working" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:gravity="center"
+                        android:text="Working Space"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/classroon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Classroom"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/hotel" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Hotels"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/wedding" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="Wedding"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dashboard">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="14dp"
+                        android:text="Near You"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <!--<TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="5dp"
+                        android:drawableRight="@drawable/ic_arrow_right"
+                        android:paddingTop="14dp"
+                        android:text="See all"
+                        android:textColor="@color/green"
+                        android:textSize="16sp" />-->
+
+                </RelativeLayout>
+
+                <GridView
+                    android:id="@id/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:horizontalSpacing="4dp"
+                    android:numColumns="2"
+                    android:padding="16dp"
+                    android:verticalSpacing="4dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <!--<RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="22dp"
+                        android:paddingTop="14dp"
+                        android:text="Our Top Popural Venue"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="5dp"
+                        android:drawableRight="@drawable/ic_arrow_right"
+                        android:paddingTop="14dp"
+                        android:text="See all"
+                        android:textColor="@color/green"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <GridView
+                    android:id="@id/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="2"
+                    android:padding="16dp"
+                    android:verticalSpacing="4dp"
+                    android:horizontalSpacing="4dp" />
+
+                &lt;!&ndash;<GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="false"
+                    android:padding="16dp"
+                    android:rowCount="1">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/hotel5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="12dp"
+                        android:elevation="6dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="175dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/hall2" />
+
+                        <RelativeLayout
+                            android:layout_width="120dp"
+                            android:gravity="center"
+                            android:layout_marginBottom="4dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center"
+                            android:background="#C4C4C4AB">
+
+                            <TextView
+                                android:id="@+id/name14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hotel Des Mille Colline"
+                                android:textColor="@color/white"
+                                android:textSize="9sp" />
+
+                            <ImageView
+                                android:id="@+id/star4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name14"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <ImageView
+                                android:id="@id/imagestar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name14"
+                                android:layout_toRightOf="@id/star4"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name14"
+                                android:layout_toRightOf="@id/imagestar"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <TextView
+                                android:id="@+id/name15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/star4"
+                                android:text="Covid Testing Considering"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@id/name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/name15"
+                                android:text=" 2KN 6th Avenue PO Box "
+                                android:textColor="@color/grey"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:id="@+id/name16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/name2"
+                                android:text="View Details"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/hotel6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginTop="12dp"
+                        android:elevation="6dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="175dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/hall2" />
+
+                        <RelativeLayout
+                            android:layout_width="120dp"
+                            android:gravity="center"
+                            android:layout_marginBottom="4dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center"
+                            android:background="#C4C4C4AB">
+
+                            <TextView
+                                android:id="@+id/name17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hotel Des Mille Colline"
+                                android:textColor="@color/white"
+                                android:textSize="9sp" />
+
+                            <ImageView
+                                android:id="@+id/star5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name17"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <ImageView
+                                android:id="@id/imagestar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name17"
+                                android:layout_toRightOf="@id/star5"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/name17"
+                                android:layout_toRightOf="@id/imagestar"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <TextView
+                                android:id="@+id/name18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/star5"
+                                android:text="Covid Testing Considering"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@id/name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/name18"
+                                android:text=" 2KN 6th Avenue PO Box "
+                                android:textColor="@color/grey"
+                                android:textSize="9sp" />
+
+                            <TextView
+                                android:id="@+id/name19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/name2"
+                                android:text="View Details"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </GridLayout>&ndash;&gt;-->
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Protecting yourself during a boking"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/green"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_margin="5dp"
+                    android:text="According to the Government Guidelines, the coronavirus mainly spreads through person-to-person contact. Here’s how you can limit your exposure during your booking"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wash your hand"
+                            android:drawableStart="@drawable/ic_baseline_clean_hands_24"
+                            android:drawablePadding="8dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginBottom="14dp"
+                            android:layout_marginRight="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wear a mask"
+                            android:drawableStart="@drawable/ic_baseline_masks_24"
+                            android:drawablePadding="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="12dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginBottom="14dp"
+                            android:text="Open windows and doors"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="12dp"
+                            android:text="Maintain physical distance"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Space your activity"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="24dp"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:layout_marginStart="2dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/conference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="8dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="65dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/download"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Conference"
+                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="230 venues"
+                            android:textSize="10sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/wedding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="8dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="65dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/download1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wedding"
+                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="520 venues"
+                            android:textSize="10sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/office"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="8dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="65dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/download2"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Office"
+                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100 venues"
+                            android:textSize="10sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/party"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="8dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="65dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/download3"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Party"
+                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="150 venues"
+                            android:textSize="10sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/navbar">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_baseline_search_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="22dp"
+                    android:text="Search"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_notifications" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="70dp"
+                    android:text="Notification"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="205dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_person_outline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="252dp"
+                    android:text="Booking"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="35dp"
+                    android:src="@drawable/ic_person_outline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="200dp"
+                    android:text="Profile"
+                    android:textColor="@color/white" />
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
