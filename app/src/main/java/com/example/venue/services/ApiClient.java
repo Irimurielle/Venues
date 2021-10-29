@@ -1,5 +1,6 @@
 package com.example.venue.services;
 
+import com.example.venue.models.CategoriesList;
 import com.example.venue.models.MoreVenuesResponse;
 
 import okhttp3.OkHttpClient;
@@ -44,5 +45,10 @@ public class ApiClient {
     public static SpaceDetailsService getSpaceDetailsService(){
         SpaceDetailsService spaceDetailsService = getRetrofit().create(SpaceDetailsService.class);
         return spaceDetailsService;
+    }
+
+    public static CategoryService getCategoryService(){
+        CategoryService categoryService = getRetrofit().create(CategoryService.class);
+        return categoryService;
     }
 }

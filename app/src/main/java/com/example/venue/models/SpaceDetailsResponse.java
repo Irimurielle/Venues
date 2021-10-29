@@ -2,7 +2,7 @@ package com.example.venue.models;
 
 public class SpaceDetailsResponse{
 
-    private int id;
+    private Integer id;
     private String space_activity;
     private String space_profile;
     private String space_location;
@@ -12,7 +12,7 @@ public class SpaceDetailsResponse{
     private String cancellation_policy;
     private String space_category_name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

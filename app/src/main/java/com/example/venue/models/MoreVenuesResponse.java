@@ -1,8 +1,10 @@
 package com.example.venue.models;
 
-public class MoreVenuesResponse {
+import java.io.Serializable;
 
-    private int id;
+public class MoreVenuesResponse implements Serializable {
+
+    private Integer id;
 
     private String venue_name;
 
@@ -12,7 +14,7 @@ public class MoreVenuesResponse {
 
     private String venue_rating;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -32,7 +34,7 @@ public class MoreVenuesResponse {
         return venue_rating;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

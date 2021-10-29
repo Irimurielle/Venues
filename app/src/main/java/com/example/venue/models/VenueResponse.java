@@ -1,6 +1,8 @@
 package com.example.venue.models;
 
-public class VenueResponse {
+import java.io.Serializable;
+
+public class VenueResponse implements Serializable {
 
     private Integer id;
     private String property_name;

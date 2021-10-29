@@ -6,7 +6,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.example.venue.R;
 import com.example.venue.models.BookingRequest;
 import com.example.venue.models.BookingResponse;
-import com.example.venue.models.VenueResponse;
 import com.example.venue.services.ApiClient;
 
 import java.util.Calendar;
@@ -29,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BookingActivity extends AppCompatActivity {
+public class BookingActivity2 extends AppCompatActivity {
 
     @BindView(R.id.date)
     EditText arrival_date;
@@ -52,7 +50,7 @@ public class BookingActivity extends AppCompatActivity {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.submit)
-    Button Button;
+    android.widget.Button Button;
     private int mHour, mMinute,mSecond,mYear, mMonth, mDay;
     String name;
     /*VenueResponse venueResponse;*/
@@ -72,7 +70,7 @@ public class BookingActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BookingActivity.this, VenueActivity.class);
+                Intent intent = new Intent(BookingActivity2.this, DetailsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -81,7 +79,7 @@ public class BookingActivity extends AppCompatActivity {
         arrival_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(BookingActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(BookingActivity2.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -101,7 +99,7 @@ public class BookingActivity extends AppCompatActivity {
         depart_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(BookingActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(BookingActivity2.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -126,7 +124,7 @@ public class BookingActivity extends AppCompatActivity {
                 mMinute = c.get(Calendar.MINUTE);
                 mSecond=c.get(Calendar.SECOND);
                 // Launch Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(BookingActivity.this,
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BookingActivity2.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
@@ -223,7 +221,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(BookingActivity.this, "Booking successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BookingActivity2.this, "Booking successful", Toast.LENGTH_LONG).show();
                     /*new RaveUiManager(BookingActivity.this).setAmount(100)
                             .setCurrency("RWF")
                             .setEmail("booking@venues.rw")
@@ -254,12 +252,12 @@ public class BookingActivity extends AppCompatActivity {
                             .initialize();*/
 
                 }else{
-                    Toast.makeText(BookingActivity.this, "Booking failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BookingActivity2.this, "Booking failed", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<BookingResponse> call, Throwable t) {
-                Toast.makeText(BookingActivity.this, "Booking unsuccessful"+ t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BookingActivity2.this, "Booking unsuccessful"+ t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

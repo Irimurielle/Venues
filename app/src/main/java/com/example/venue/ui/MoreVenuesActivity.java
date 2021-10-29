@@ -1,6 +1,5 @@
 package com.example.venue.ui;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,16 +24,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.venue.GlideApp;
 import com.example.venue.R;
+import com.example.venue.models.Categories;
 import com.example.venue.models.MoreVenuesList;
 import com.example.venue.models.MoreVenuesResponse;
-import com.example.venue.models.SpaceDetails;
-import com.example.venue.models.SpaceDetailsList;
 import com.example.venue.services.ApiClient;
 
 import java.util.ArrayList;
@@ -62,7 +56,8 @@ public class MoreVenuesActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     Dialog dialog;
     private List<MoreVenuesResponse> moreVenuesResponses =new ArrayList<>();
-    private List<SpaceDetails> spaceDetailsList =new ArrayList<>();
+    private List<Categories> categories =new ArrayList<>();
+    Categories category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +66,7 @@ public class MoreVenuesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         dialog = new Dialog(this);
+        category = (Categories) getIntent().getSerializableExtra("category");
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -106,20 +102,22 @@ public class MoreVenuesActivity extends AppCompatActivity {
             }
         });
         getAllMoreVenues();
+        /*getCategories();*/
     }
 
-    private void getAllSpaceDetails(){
-        Call<SpaceDetailsList> spaceDetails = ApiClient.getSpaceDetailsService().getAllSpaceDetails(4);
-        spaceDetails.enqueue(new Callback<SpaceDetailsList>() {
+    /*private void getCategories() {
+        Call<CategoriesList> categoriesListCall = ApiClient.getCategoryService().getAllSearchedCategory(category.getId());
+        categoriesListCall.enqueue(new Callback<CategoriesList>() {
             @Override
-            public void onResponse(Call<SpaceDetailsList> call, Response<SpaceDetailsList> response) {
+            public void onResponse(Call<CategoriesList> call, Response<CategoriesList> response) {
                 if (response.isSuccessful()){
                     String message ="Request successful..";
                     Toast.makeText(MoreVenuesActivity.this,message,Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MoreVenuesActivity.this, VenueActivity.class);
-                    startActivity(intent);
-                    finish();
-                    SpaceDetailsList spaceDetailsList = response.body();
+                    CategoriesList categoriesList = response.body();
+                    categories = new ArrayList<>(Arrays.asList(categoriesList.getVenues()));
+                    MoreVenuesActivity.CustomAdapter customAdapter = new MoreVenuesActivity.CustomAdapter(categories,MoreVenuesActivity.this);
+                    gridView.setAdapter(customAdapter);
+
                 }else{
                     String message ="an error occurred try again later..";
                     Toast.makeText(MoreVenuesActivity.this,message,Toast.LENGTH_LONG).show();
@@ -128,11 +126,11 @@ public class MoreVenuesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SpaceDetailsList> call, Throwable t) {
+            public void onFailure(Call<CategoriesList> call, Throwable t) {
                 Log.e("Failed", t.getLocalizedMessage());
             }
         });
-    }
+    }*/
 
     private void getAllMoreVenues() {
         Call<MoreVenuesList> moreVenues = ApiClient.getMoreVenueService().getAllMoreVenues();
@@ -160,6 +158,66 @@ public class MoreVenuesActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*public class CustomAdapter extends BaseAdapter {
+
+        private List<Categories> categories;
+        private Context context;
+        private LayoutInflater layoutInflater;
+
+        public CustomAdapter(List<Categories> categories, Context context) {
+            this.categories = categories;
+            this.context = context;
+            this.layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return categories.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            if (view == null){
+                view = layoutInflater.inflate(R.layout.row_more_item,viewGroup,false);
+            }
+
+            ImageView imageView = view.findViewById(R.id.image2);
+            ImageView rating = view.findViewById(R.id.star1);
+            ImageView details = view.findViewById(R.id.img5);
+            TextView name = view.findViewById(R.id.text3);
+            TextView category_name = view.findViewById(R.id.text4);
+            TextView tests = view.findViewById(R.id.text5);
+
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getAllSpaceDetails();
+                }
+            });
+
+            name.setText(categories.get(i).getSpace_activity() );
+            category_name.setText(categories.get(i).getSpace_category_name());
+
+            GlideApp.with(context)
+                    .load("https://venues.ewawe.com/propertyProfile/" + categories.get(i).getSpace_profile())
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(imageView);
+
+            return view;
+        }
+    }*/
 
     public class CustomAdapter extends BaseAdapter {
 
@@ -205,7 +263,9 @@ public class MoreVenuesActivity extends AppCompatActivity {
             details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getAllSpaceDetails();
+                    Intent intent = new Intent(context,DetailsActivity.class);
+                    intent.putExtra("detail",moreVenuesResponse.get(i));
+                    context.startActivity(intent);
                 }
             });
 

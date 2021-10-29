@@ -34,26 +34,29 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="Hotel Des Mille Colline"
                 android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
                 android:textSize="9sp" />
 
 
-            <ImageView
+            <TextView
                 android:id="@+id/star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name"
-                android:src="@drawable/ic_baseline_star_24" />
+                android:layout_centerHorizontal="true"
+                android:text="Rating"
+                android:textColor="@color/grey"
+                android:textSize="9sp" />
 
             <TextView
                 android:id="@+id/name3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/star"
-                android:text="Covid Testing Considering"
                 android:layout_centerHorizontal="true"
+                android:text="Covid Testing Considering"
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
@@ -62,9 +65,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name3"
-                android:text=" 2KN 6th Avenue PO Box "
-                android:textColor="@color/grey"
                 android:layout_centerHorizontal="true"
+                android:text="2KN 6th Avenue PO Box"
+                android:textColor="@color/grey"
                 android:textSize="9sp" />
 
             <TextView
@@ -72,8 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name4"
-                android:text="View Details"
                 android:layout_centerHorizontal="true"
+                android:text="View Details"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 

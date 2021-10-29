@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.request.target.Target;
 import com.example.venue.GlideApp;
 import com.example.venue.R;
+import com.example.venue.models.MoreVenuesResponse;
 import com.example.venue.models.SpaceDetailsList;
 import com.example.venue.models.SpaceDetailsResponse;
 import com.example.venue.models.SpaceFacilityResponse;
@@ -37,16 +38,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallback*/{
+public class DetailsActivity extends FragmentActivity /*implements OnMapReadyCallback*/ {
 
     @BindView(R.id.gridview)
     GridView grid;
     /*GoogleMap mMap;*/
-    private List<SpaceDetailsResponse> spaceDetailsResponses =new ArrayList<>();
-    private List<SpaceGalleryResponse> spaceGalleryResponses =new ArrayList<>();
-    private List<SpaceFacilityResponse> spaceFacilityResponses =new ArrayList<>();
-    private List<SpaceSeatArrangeResponse> spaceSeatArrangeResponses =new ArrayList<>();
-    VenueResponse venue;
+    private List<SpaceDetailsResponse> spaceDetailsResponses = new ArrayList<>();
+    private List<SpaceGalleryResponse> spaceGalleryResponses = new ArrayList<>();
+    private List<SpaceFacilityResponse> spaceFacilityResponses = new ArrayList<>();
+    private List<SpaceSeatArrangeResponse> spaceSeatArrangeResponses = new ArrayList<>();
+    MoreVenuesResponse detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,29 +57,29 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
 
         /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
-        venue = (VenueResponse) getIntent().getSerializableExtra("venue");
+        detail = (MoreVenuesResponse) getIntent().getSerializableExtra("detail");
         getAllSpaceDetails();
 
     }
 
-    private void getAllSpaceDetails(){
-        Call<SpaceDetailsList> spaceDetails = ApiClient.getSpaceDetailsService().getAllSpaceDetails(venue.getId());
+    private void getAllSpaceDetails() {
+        Call<SpaceDetailsList> spaceDetails = ApiClient.getSpaceDetailsService().getAllSpaceDetails(detail.getId());
         spaceDetails.enqueue(new Callback<SpaceDetailsList>() {
             @Override
             public void onResponse(Call<SpaceDetailsList> call, Response<SpaceDetailsList> response) {
-                if (response.isSuccessful()){
-                    String message ="Request successful..";
-                    Toast.makeText(VenueActivity.this,message,Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    String message = "Request successful..";
+                    Toast.makeText(DetailsActivity.this, message, Toast.LENGTH_LONG).show();
                     SpaceDetailsList spaceDetailsList = response.body();
                     spaceDetailsResponses = new ArrayList<>(Arrays.asList(spaceDetailsList.getSpace_details()));
                     spaceGalleryResponses = new ArrayList<>(Arrays.asList(spaceDetailsList.getSpace_gallery()));
                     spaceFacilityResponses = new ArrayList<>(Arrays.asList(spaceDetailsList.getSpace_facility()));
                     spaceSeatArrangeResponses = new ArrayList<>(Arrays.asList(spaceDetailsList.getSpace_seat_arrange()));
-                    VenueActivity.CustomAdapter customAdapter = new VenueActivity.CustomAdapter(spaceDetailsResponses,spaceFacilityResponses,spaceSeatArrangeResponses,VenueActivity.this);
+                    DetailsActivity.CustomAdapter customAdapter = new DetailsActivity.CustomAdapter(spaceDetailsResponses, spaceFacilityResponses, spaceSeatArrangeResponses, DetailsActivity.this);
                     grid.setAdapter(customAdapter);
-                }else{
-                    String message ="an error occurred try again later..";
-                    Toast.makeText(VenueActivity.this,message,Toast.LENGTH_LONG).show();
+                } else {
+                    String message = "an error occurred try again later..";
+                    Toast.makeText(DetailsActivity.this, message, Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -103,7 +104,7 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
 
     }*/
 
-    public class CustomAdapter extends BaseAdapter /*implements OnMapReadyCallback*/{
+    public class CustomAdapter extends BaseAdapter /*implements OnMapReadyCallback*/ {
 
         private List<SpaceDetailsResponse> spaceDetailsResponse;
         private List<SpaceFacilityResponse> spaceFacilityResponse;
@@ -111,7 +112,7 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
         private Context context;
         private LayoutInflater layoutInflater;
 
-        public CustomAdapter(List<SpaceDetailsResponse> spaceDetailsResponse,List<SpaceFacilityResponse> spaceFacilityResponse,List<SpaceSeatArrangeResponse> spaceSeatArrangeResponse,Context context) {
+        public CustomAdapter(List<SpaceDetailsResponse> spaceDetailsResponse, List<SpaceFacilityResponse> spaceFacilityResponse, List<SpaceSeatArrangeResponse> spaceSeatArrangeResponse, Context context) {
             this.spaceDetailsResponse = spaceDetailsResponses;
             this.spaceFacilityResponse = spaceFacilityResponse;
             this.spaceSeatArrangeResponse = spaceSeatArrangeResponse;
@@ -137,8 +138,8 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            if (view == null){
-                view = layoutInflater.inflate(R.layout.venue_row,viewGroup,false);
+            if (view == null) {
+                view = layoutInflater.inflate(R.layout.detail_row, viewGroup, false);
             }
 
             ImageView imageView = view.findViewById(R.id.image);
@@ -165,7 +166,7 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
             close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(VenueActivity.this, DashboardActivity.class);
+                    Intent intent = new Intent(DetailsActivity.this, MoreVenuesActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -174,13 +175,13 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(VenueActivity.this, BookingActivity.class);
+                    Intent intent = new Intent(DetailsActivity.this, BookingActivity2.class);
                     startActivity(intent);
                     finish();
                 }
             });
 
-            VenueActivity.CustomAdapter1 customAdapter1 = new VenueActivity.CustomAdapter1(spaceGalleryResponses,VenueActivity.this);
+            DetailsActivity.CustomAdapter1 customAdapter1 = new DetailsActivity.CustomAdapter1(spaceGalleryResponses, DetailsActivity.this);
             gridview.setAdapter(customAdapter1);
 
             return view;
@@ -205,7 +206,7 @@ public class VenueActivity extends FragmentActivity /*implements OnMapReadyCallb
         private Context context;
         private LayoutInflater layoutInflater;
 
-        public CustomAdapter1(List<SpaceGalleryResponse> spaceGalleryResponse,Context context) {
+        public CustomAdapter1(List<SpaceGalleryResponse> spaceGalleryResponse, Context context) {
             this.spaceGalleryResponse = spaceGalleryResponses;
             this.context = context;
             this.layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);

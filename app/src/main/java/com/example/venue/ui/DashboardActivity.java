@@ -1,14 +1,11 @@
 package com.example.venue.ui;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +18,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.venue.GlideApp;
 import com.example.venue.R;
-import com.example.venue.models.SpaceDetails;
-import com.example.venue.models.SpaceDetailsList;
+import com.example.venue.models.Categories;
+import com.example.venue.models.CategoriesList;
+import com.example.venue.models.SpaceDetailsResponse;
 import com.example.venue.models.VenueList;
 import com.example.venue.models.VenueResponse;
 import com.example.venue.services.ApiClient;
@@ -37,13 +31,12 @@ import com.example.venue.services.ApiClient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Response;/*getAllSpaceDetails1();*/
 
 public class DashboardActivity extends AppCompatActivity {
     private static final String TAG = DashboardActivity.class.getSimpleName();
@@ -61,9 +54,13 @@ public class DashboardActivity extends AppCompatActivity {
     CardView party;
     @BindView(R.id.grid)
     GridView gridView;
-    private List<VenueResponse> venueResponses = new ArrayList<>();
-    private List<SpaceDetails> spaceDetailsResponses =new ArrayList<>();
+    @BindView(R.id.gridLayout)
+    GridView griddy;
 
+    private List<VenueResponse> venueResponses = new ArrayList<>();
+    private List<SpaceDetailsResponse> spaceDetailsResponses = new ArrayList<>();
+    private List<Categories> categories = new ArrayList<>();
+    Categories category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,64 +73,62 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, MoreVenuesActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
         conference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, MoreVenuesActivity.class);
+                Intent intent = new Intent(DashboardActivity.this,MoreVenuesActivity.class);;
                 startActivity(intent);
-                finish();
             }
         });
 
         wedding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, MoreVenuesActivity.class);
+                Intent intent = new Intent(DashboardActivity.this,MoreVenuesActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
         office.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, MoreVenuesActivity.class);
+                Intent intent = new Intent(DashboardActivity.this,MoreVenuesActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
         party.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DashboardActivity.this, MoreVenuesActivity.class);
+                Intent intent = new Intent(DashboardActivity.this,MoreVenuesActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
 
         getAllVenues();
 
+        /*getCategory();*/
+
         CustomAdapter customAdapter;
     }
 
-    private void getAllSpaceDetails(){
-        Call<SpaceDetailsList> spaceDetails = ApiClient.getSpaceDetailsService().getAllSpaceDetails(4);
-        spaceDetails.enqueue(new Callback<SpaceDetailsList>() {
+    private void getCategory() {
+        Call<CategoriesList> categoriesListCall = ApiClient.getCategoryService().getAllSearchedCategory(6);
+        categoriesListCall.enqueue(new Callback<CategoriesList>() {
             @Override
-            public void onResponse(Call<SpaceDetailsList> call, Response<SpaceDetailsList> response) {
+            public void onResponse(Call<CategoriesList> call, Response<CategoriesList> response) {
                 if (response.isSuccessful()){
                     String message ="Request successful..";
                     Toast.makeText(DashboardActivity.this,message,Toast.LENGTH_LONG).show();
-                    SpaceDetailsList spaceDetailsList = response.body();
-                    Intent intent = new Intent(DashboardActivity.this, VenueActivity.class);
-                    startActivity(intent);
-                    finish();
+                    CategoriesList categoriesList = response.body();
+                    categories = new ArrayList<>(Arrays.asList(categoriesList.getVenues()));
+                    spaceDetailsResponses = new ArrayList<>(Arrays.asList(categoriesList.getSpace_details()));
+                    DashboardActivity.CustomAdapter1 customAdapter1 = new DashboardActivity.CustomAdapter1(categories,spaceDetailsResponses,DashboardActivity.this);
+                    griddy.setAdapter(customAdapter1);
                 }else{
                     String message ="an error occurred try again later..";
                     Toast.makeText(DashboardActivity.this,message,Toast.LENGTH_LONG).show();
@@ -142,8 +137,9 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SpaceDetailsList> call, Throwable t) {
-                Log.e("Failed", t.getLocalizedMessage());
+            public void onFailure(Call<CategoriesList> call, Throwable t) {
+                String message = t.getLocalizedMessage();
+                Toast.makeText(DashboardActivity.this,message,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -186,6 +182,57 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
+    public class CustomAdapter1 extends BaseAdapter{
+
+        private List<Categories> categories;
+        private List<SpaceDetailsResponse> spaceDetailsResponse;
+        private Context context;
+        private LayoutInflater layoutInflater;
+
+        public CustomAdapter1(List<Categories> categories, List<SpaceDetailsResponse> spaceDetailsResponse, Context context) {
+            this.categories = categories;
+            this.spaceDetailsResponse = spaceDetailsResponse;
+            this.context = context;
+            this.layoutInflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return categories.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            if (view == null){
+                view = layoutInflater.inflate(R.layout.row_item,viewGroup,false);
+            }
+
+            ImageView imageView = view.findViewById(R.id.imageView);
+            TextView name = view.findViewById(R.id.name);
+
+            name.setText(categories.get(i).getSpace_category_name());
+
+            GlideApp.with(context)
+                    .load("https://venues.ewawe.com/propertyProfile/" + spaceDetailsResponse.get(i).getSpace_profile())
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(imageView);
+
+
+            return view;
+        }
+    }
+
     public class CustomAdapter extends BaseAdapter implements Filterable {
 
         private List<VenueResponse> venueResponse;
@@ -221,14 +268,15 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             ImageView imageView = view.findViewById(R.id.imageView);
-            ImageView rating = view.findViewById(R.id.star);
+            TextView rating = view.findViewById(R.id.star);
             TextView name = view.findViewById(R.id.name);
             TextView name3 = view.findViewById(R.id.name3);
             TextView name4 = view.findViewById(R.id.name4);
             TextView name6 = view.findViewById(R.id.name6);
 
             name.setText(venueResponse.get(i).getProperty_name());
-            name3.setText(venueResponse.get(i).getContact_phone() + "\n" + venueResponse.get(i).getProperty_website());
+            name3.setText(venueResponse.get(i).getProperty_website());
+            rating.setText(venueResponse.get(i).getVenue_rating());
             name4.setText(venueResponse.get(i).getAddress() + "\n" + venueResponse.get(i).getMain_address());
 
             GlideApp.with(context)
@@ -236,24 +284,12 @@ public class DashboardActivity extends AppCompatActivity {
                     .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                     .into(imageView);
 
-            GlideApp.with(context)
-                    .load(venueResponse.get(i).getVenue_rating())
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            return false;
-                        }
-                    }).into(rating);
-
             name6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getAllSpaceDetails();
+                    Intent intent = new Intent(context,VenueActivity.class);
+                    intent.putExtra("venue",venueResponse.get(i));
+                    context.startActivity(intent);
                 }
             });
 

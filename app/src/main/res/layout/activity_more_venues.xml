@@ -217,7 +217,7 @@
                     app:cardUseCompatPadding="true">
 
                     <ImageView
-                        android:layout_width="43dp"
+                        android:layout_width="44dp"
                         android:layout_height="40dp"
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/conference" />
@@ -263,7 +263,7 @@
                     app:cardUseCompatPadding="true">
 
                     <ImageView
-                        android:layout_width="42dp"
+                        android:layout_width="43dp"
                         android:layout_height="40dp"
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/classroon" />
